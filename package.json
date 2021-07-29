@@ -1,0 +1,15 @@
+{
+  "name": "fp-ts-learning",
+  "version": "1.0.0",
+  "description": "Learning fp-ts",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^16.4.7",
+    "typescript": "^4.3.5"
+  }
+}
