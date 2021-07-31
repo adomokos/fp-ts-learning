@@ -1,9 +1,8 @@
-import { struct, Semigroup, semigroupAll } from "fp-ts/Semigroup"
+import { struct, Semigroup } from "fp-ts/Semigroup"
 import { min, max } from "fp-ts/Semigroup"
 import * as N from "fp-ts/number";
 import * as B from "fp-ts/boolean";
-import { getSemigroup } from "fp-ts/Function"
-import { getSemigroupAll } from "fp-ts/lib/Predicate";
+import { getSemigroup } from "fp-ts/function"
 
 // number `Semigroup` under multiplication
 const semigroupProduct: Semigroup<number> = {
