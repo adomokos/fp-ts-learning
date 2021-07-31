@@ -1,8 +1,11 @@
-import { struct, Semigroup } from "fp-ts/Semigroup"
+import { concatAll, struct, Semigroup } from "fp-ts/Semigroup"
 import { min, max } from "fp-ts/Semigroup"
 import * as N from "fp-ts/number";
 import * as B from "fp-ts/boolean";
 import { getSemigroup } from "fp-ts/function"
+import * as O from 'fp-ts/Option'
+import { getApplySemigroup, some, none } from 'fp-ts/Option'
+import { semigroupSum as sgSum } from "fp-ts/Semigroup"
 
 // number `Semigroup` under multiplication
 const semigroupProduct: Semigroup<number> = {
@@ -66,6 +69,14 @@ const isPositiveY = (p: Point): boolean => p.y >= 0
 
 const isPositivieXY = semigroupPredicate.concat(isPositiveX, isPositiveY)
 
+// Concat works with two elements, the `fold` function
+// works on a collection
+const sum = concatAll(semigroupSum)
+const product = concatAll(semigroupProduct)
+
+// It even works with Option
+const S = getApplySemigroup(sgSum)
+
 describe("Semigroup", () => {
     it("can define sum and product for numbers", () => {
         expect(semigroupProduct.concat(3, 5)).toEqual(15)
@@ -93,5 +104,15 @@ describe("Semigroup", () => {
         expect(isPositivieXY({ x: 1, y: -1})).toBeFalsy()
         expect(isPositivieXY({ x: -1, y: 1})).toBeFalsy()
         expect(isPositivieXY({ x: -1, y: -1})).toBeFalsy()
+    })
+
+    it("can handle a collection of Semigroup items", () => {
+        expect(sum(0)([1, 2, 3, 4])).toEqual(10)
+        expect(product(1)([1, 2, 3, 4])).toEqual(24)
+    })
+
+    it("works with Option type", () => {
+        const result = S.concat(some(2), some(3))
+        expect(result).toEqual(some(5))
     })
 })
