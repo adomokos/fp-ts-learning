@@ -3,7 +3,6 @@ import { min, max } from "fp-ts/Semigroup"
 import * as N from "fp-ts/number";
 import * as B from "fp-ts/boolean";
 import { getSemigroup } from "fp-ts/function"
-import * as O from 'fp-ts/Option'
 import { getApplySemigroup, some, none } from 'fp-ts/Option'
 import { semigroupSum as sgSum } from "fp-ts/Semigroup"
 
