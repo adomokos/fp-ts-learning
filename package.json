@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build:live",
-    "build": "tsc -p .",
+    "build": "tsc -p tsconfig-build.json",
     "test": "jest",
     "build:live": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts"
   },
