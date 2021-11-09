@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run build:live",
     "build": "tsc -p tsconfig-build.json",
-    "test": "jest",
+    "test": "jest --runInBand",
     "build:live": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts"
   },
   "author": "",
