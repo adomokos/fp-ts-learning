@@ -1,10 +1,4 @@
-function curry2<T1, T2, T3>(fn: (a: T1, b: T2) => T3) {
-    return (a: T1) => (b: T2) => fn(a, b);
-};
-
-function curry3<T1, T2, T3, T4>(fn: (a: T1, b: T2, c: T3) => T4) {
-    return (a: T1) => (b: T2) => (c: T3) => fn(a, b, c);
-};
+import { curry2, curry3, compose } from "./utils";
 
 function add(a: number, b: number) {
     return a + b;
@@ -14,8 +8,18 @@ function multiple(a: number, b: number) {
     return a * b;
 }
 
-const replace = (s: string, f: string, r: string) => s.split(f).join(r);
+const replace = (f: string, r: string, s: string) => s.split(f).join(r);
 const curriedReplace = curry3(replace);
+
+const trim = (s: string) => s.trim();
+const capitalize = (s: string) => s.toUpperCase();
+
+const trimAndCapitalize = (s: string) => capitalize(trim(s));
+
+const trimCapitalizeAndReplace = compose(
+    trimAndCapitalize,
+    curriedReplace("/")("-")
+)
 
 describe("currying", () => {
     it("can take a fn with two arguments", () => {
@@ -33,7 +37,13 @@ describe("currying", () => {
     });
 
     it("works with original compose function", () => {
-        const result = curriedReplace("13/feb/1999")("/")( "-");
+        const result = curriedReplace("/")( "-")("13/feb/1999");
         expect(result).toBe("13-feb-1999");
+    });
+
+    it("can compose multiple functions together", () => {
+        const result = trimCapitalizeAndReplace("   13/feb/1999 ");
+        expect(result).toBe("13-FEB-1999");
+
     });
 });

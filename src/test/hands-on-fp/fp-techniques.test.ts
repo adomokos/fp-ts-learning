@@ -1,5 +1,4 @@
-import { exportNamedDeclaration } from "@babel/types";
-import { string } from "fp-ts";
+import { compose, compose3, composeMany } from "./utils";
 
 const trim = (s: string) => s.trim();
 const capitalize = (s: string) => s.toUpperCase();
@@ -7,15 +6,6 @@ const ask = (s: string) => `${s}?`;
 
 const trimAndCapitalize = (s: string) => capitalize(trim(s));
 
-const compose = <T>(f: (x: T) => T, g: (x: T) => T) => (x: T) => f(g(x));
-
-const compose3 = <T>(f: (x: T) => T, g: (x: T) => T, h: (x: T) => T) => (x: T) => f(g(h(x)));
-
-const composeMany = <T>(...fs: ((x: T) => T)[]): ((x: T) => T) => {
-    return (x: T) => {
-        return fs.reduce((acc, f) => f(acc), x);
-    }
-}
 
 // Partial application
 
