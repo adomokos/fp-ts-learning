@@ -1,3 +1,5 @@
+// Examples from here: https://dev.to/gcanti/getting-started-with-fp-ts-either-vs-validation-5eja
+
 import { Either, left, right } from 'fp-ts/Either';
 import { chain } from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
