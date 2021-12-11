@@ -42,7 +42,7 @@ interface User {
     age: number;
 }
 
-function getUser (id: number): Either<string, User> {
+function getUserMaybe (id: number): Either<string, User> {
     return Just.of({
         id,
         name: "John",
@@ -57,7 +57,7 @@ function getUserWithError(id: number): Either<string, User> {
 
 describe("Either", () => {
     it("can handle the happy path", () => {
-        const result = getUser(1);
+        const result = getUserMaybe(1);
         if (result instanceof Just) {
             expect(result.map(user => user.name)).toEqual(Just.of("John"));
         } else {
