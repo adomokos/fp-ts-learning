@@ -1,6 +1,9 @@
+// Examples from here: https://grossbart.github.io/fp-ts-recipes/#/async
+
 import { apply, task, taskEither } from "fp-ts";
 import { pipe } from "fp-ts/function";
 import { Either, isRight, right } from "fp-ts/lib/Either";
+import { access, constants } from "fs";
 
 const deepThought: task.Task<number> = () => Promise.resolve(42);
 
@@ -52,5 +55,37 @@ describe("Promoises and Tasks", () => {
 
         const result2 = await apply.sequenceS(task.ApplyPar)({a: task.of(1), b: task.of("hello")})();
         expect(result2).toEqual({a: 1, b: "hello"});
+    });
+
+    it("works with a list of dependent tasks", async() => {
+        const result = await pipe(
+            task.of(2),
+            task.chain((result) => task.of(result + 3)),
+            task.chain((result) => task.of(result + 4))
+        )();
+
+        expect(result).toEqual(9);
+    });
+
+    it("can traverse over results", async() => {
+        const checkPathExists = (path: string) => () =>
+            new Promise((resolve) => {
+                access(path,
+                       constants.F_OK,
+                       (err: unknown) => resolve({ path, exists: !err }));
+            })
+
+        const items = ["/bin", "/no/real/path"];
+
+        const result = await task.sequenceArray(items.map(checkPathExists))()
+        expect(result).toEqual(
+            [
+                { path: "/bin", exists: true },
+                { path: "/no/real/path", exists: false },
+            ]
+        )
+
+        // this example did not work
+        // const result = task.traverseArray(items, checkPathExists)();
     });
 });
