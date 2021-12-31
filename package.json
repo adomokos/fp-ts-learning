@@ -4,6 +4,7 @@
   "description": "Learning fp-ts",
   "main": "index.js",
   "scripts": {
+    "cli": "ts-node src/index.ts",
     "start": "npm run build:live",
     "build": "tsc -p tsconfig-build.json",
     "test": "jest --runInBand",

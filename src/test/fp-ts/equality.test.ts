@@ -59,7 +59,7 @@ describe("Equality", () => {
         const array3 = ["one", "two", "four"];
 
         expect(eqArrayOfStrings.equals(array1, array2)).toBeTruthy();
-        expect(eqArrayOfStrings.equals(array2, array3)).toBeFalsy();        
+        expect(eqArrayOfStrings.equals(array2, array3)).toBeFalsy();
 
         const point1: Point = { x: 1, y: 2 };
         const point2: Point = { x: 3, y: 4 };
