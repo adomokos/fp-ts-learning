@@ -1,28 +1,29 @@
 // Examples from here: https://grossbart.github.io/fp-ts-recipes/#/equality?id=primitive-equality
 import { array, boolean, date, number, string, option, either } from "fp-ts";
-import { Eq } from "fp-ts/Eq";
+import { Eq, struct } from "fp-ts/Eq";
 
 type Point = {
     x: number;
     y: number;
 }
 
-const eqPoint: Eq<Point> = {
-    equals: (p1: Point, p2: Point) => p1 === p2 || (p1.x === p2.x && p1.y === p2.y)
-}
+const eqPoint: Eq<Point> = struct({
+    x: number.Eq,
+    y: number.Eq,
+});
 
 type Vector = {
     from: Point;
     to: Point;
 }
 
-const eqVector: Eq<Vector> = {
-    equals: (v1: Vector, v2: Vector) => v1 === v2 ||
-        (eqPoint.equals(v1.from, v2.from) && eqPoint.equals(v1.to, v2.to))
-}
+const eqVector: Eq<Vector> = struct({
+    from: eqPoint,
+    to: eqPoint,
+});
 
-const eqArrayOfStrings = array.getEq<string>(string.Eq);
-const eqArrayOfPoints = array.getEq<Point>(eqPoint);
+const eqArrayOfStrings = array.getEq(string.Eq);
+const eqArrayOfPoints = array.getEq(eqPoint);
 
 const oE = option.getEq(number.Eq);
 const eE = either.getEq(string.Eq, number.Eq);
