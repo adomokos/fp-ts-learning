@@ -1,6 +1,6 @@
 import { struct, concatAll, Monoid } from "fp-ts/Monoid"
 import { last } from 'fp-ts/Semigroup';
-import { getApplyMonoid, getMonoid, Option, some, none, getLastMonoid } from "fp-ts/lib/Option"
+import { getApplyMonoid, getMonoid, Option, some, none, getLastMonoid } from "fp-ts/Option"
 
 const monoidSum: Monoid<number> = {
     concat: (x, y) => x + y,

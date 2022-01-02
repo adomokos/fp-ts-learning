@@ -1,6 +1,6 @@
 // Examples from here: https://grossbart.github.io/fp-ts-recipes/#/equality?id=primitive-equality
 import { array, boolean, date, number, string, option, either } from "fp-ts";
-import { Eq } from "fp-ts/lib/Eq";
+import { Eq } from "fp-ts/Eq";
 
 type Point = {
     x: number;

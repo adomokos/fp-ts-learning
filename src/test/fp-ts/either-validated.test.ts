@@ -1,13 +1,8 @@
 // Examples from here: https://dev.to/gcanti/getting-started-with-fp-ts-either-vs-validation-5eja
 
-import { Either, left, right } from 'fp-ts/Either';
-import { chain } from 'fp-ts/Either';
+import { chain, Either, getApplicativeValidation, left, map, mapLeft, right } from 'fp-ts/Either';
 import { pipe } from 'fp-ts/function';
-import { getSemigroup } from 'fp-ts/NonEmptyArray';
-import { getApplicativeValidation } from 'fp-ts/Either';
-import { map } from 'fp-ts/lib/Either';
-import { NonEmptyArray } from 'fp-ts/lib/NonEmptyArray';
-import { mapLeft } from 'fp-ts/Either';
+import { getSemigroup, NonEmptyArray } from 'fp-ts/NonEmptyArray';
 import { sequenceT } from 'fp-ts/lib/Apply';
 
 const minLength = (s: string): Either<string, string> =>

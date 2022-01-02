@@ -2,7 +2,7 @@
 
 import { apply, task, taskEither } from "fp-ts";
 import { pipe } from "fp-ts/function";
-import { Either, isRight, right } from "fp-ts/lib/Either";
+import { Either, isRight, right } from "fp-ts/Either";
 import { access, constants } from "fs";
 
 const deepThought: task.Task<number> = () => Promise.resolve(42);

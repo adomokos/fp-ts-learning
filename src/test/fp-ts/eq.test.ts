@@ -1,8 +1,8 @@
 import { Eq } from "fp-ts/Eq";
-import { getEq } from "fp-ts/lib/Array"
+import { getEq } from "fp-ts/Array"
 import { tuple } from "fp-ts/Eq";
 import * as N from "fp-ts/number";
-import { contramap } from "fp-ts/lib/Eq";
+import { contramap } from "fp-ts/Eq";
 
 const eqNumber: Eq<number> = {
     equals: (x, y) => x === y
